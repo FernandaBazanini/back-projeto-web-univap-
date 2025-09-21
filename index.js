@@ -32,6 +32,17 @@ app.post("/formulario", async (req, res) => {
   }
 });
 
+// Endpoint para listar todos os formulários
+app.get("/formularios", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM formulario");
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Erro ao buscar formulários:", error);
+    res.status(500).json({ error: "Erro no servidor." });
+  }
+});
+
 app.listen(process.env.PORT, () => {
   console.log(`🚀 Servidor rodando em http://localhost:${process.env.PORT}`);
 });
